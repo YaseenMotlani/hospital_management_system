@@ -1,0 +1,54 @@
+/* .activityOverViewParentContainer{
+    height: 50%;
+    width: 30%;
+}
+
+.activityOverContainer1 {
+    background-color: #a4d2ff;
+}
+
+.activityOverContainer2 {
+    background-color: #a4ffbd;
+}
+
+.activityOverContainer3 {
+    background-color: #fff598;
+}
+
+.activityOverContainer4 {
+    background-color: #cca4ff;
+} */
+
+.activityOverViewParentContainer {
+    width: 30%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+/* All small cards */
+.activityOverContainer1,
+.activityOverContainer2,
+.activityOverContainer3,
+.activityOverContainer4 {
+    height: 95px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 15px;      /* Gap between rows */
+}
+
+/* Gap between first and second column */
+.activityOverContainer1,
+.activityOverContainer3 {
+    margin-right: 10px;       /* Column spacing */
+}
+
+/* Background colors */
+.activityOverContainer1 { background: #dbeaff; }
+.activityOverContainer2 { background: #e6ffe8; }
+.activityOverContainer3 { background: #fffacd; }
+.activityOverContainer4 { background: #f5e6ff; }
