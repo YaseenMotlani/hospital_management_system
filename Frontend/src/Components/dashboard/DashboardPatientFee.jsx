@@ -2,12 +2,12 @@ import React from "react";
 
 const DashboardPatientFee = () => {
     return (
-        <div className="p-3 shadow-lg bg-white rounded" style={{width: "29.8%"}}>
+        <div className="p-3 shadow-lg bg-white rounded h-100 d-flex flex-column" style={{ width: "33%" }}>
             <div>
                 <h5>Patient Fee</h5>
             </div> 
 
-            <div className="mt-2" style={{ height: "30vh", msOverflowX: "hidden", overflowY: "auto"}}>
+            <div className="mt-2 flex-grow-1 overflow-auto" >
                 <ul className="PS-0" style={{listStyle: "none"}}>
                     <li className="w-100 d-flex justify-content-between align-items-center py-2" style={{ borderBottom: "1px solid grey" }}>
                         {/* Image of Education Content */}

@@ -1,7 +1,7 @@
 import React from "react";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import Layout from "../Components/Common/Layout";
-import Patient from "../Components/Patients/Patients";
+import Patient from "../Components/patients/Patients.jsx";
 
 const PatientsPage = () => {
     return(

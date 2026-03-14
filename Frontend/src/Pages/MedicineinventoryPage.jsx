@@ -4,7 +4,7 @@ import Medicine from "../Components/medicine/Medicine";
 
 const MedicineInventoryPage = () => {
     return(
-        <Layout title="Inventory">
+        <Layout title="Medicine Info">
             <Medicine/>
         </Layout>
     );

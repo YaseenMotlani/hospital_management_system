@@ -3,7 +3,7 @@ import { AddPatients, DeletePatients, getAllPatient, UpdatePatients } from "../c
 
 let router = express.Router();
 
-router.get("/patients", getAllPatient);
+router.get("/patient", getAllPatient);
 router.post("/add-patient", AddPatients);
 router.put("/update-patient/:id", UpdatePatients)
 router.delete("/delete-patient/:id", DeletePatients)

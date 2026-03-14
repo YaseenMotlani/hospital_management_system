@@ -6,8 +6,13 @@ import { AiOutlineMedicineBox } from "react-icons/ai";
 import { MdCastForEducation, MdOutlineMessage } from "react-icons/md";
 import { FaUserDoctor } from "react-icons/fa6";
 import { IoDocumentSharp, IoPeopleSharp } from "react-icons/io5";
+import { useAuth } from "../auth/AuthContext";   // ✅ import karo
+
 
 const SideNav = () => {
+
+  const { logout } = useAuth();   // ✅ hook use karo
+
   return (
     <div className="shadow vh-100 p-3" style={{ width: "250px" }}>
       <div className="text-center mb-4">
@@ -27,9 +32,23 @@ const SideNav = () => {
         </li>
 
         <li className="my-3">
+          <NavLink to="/doctors" className="px-2 py-2 hover-div d-flex align-items-center">
+            <FaUserDoctor size={20} className="me-2" />
+            Doctors
+          </NavLink>
+        </li>
+
+        <li className="my-3">
           <NavLink to="/patients" className="px-2 py-2 hover-div d-flex align-items-center">
             <IoPeopleSharp size={20} className="me-2" />
             Patients
+          </NavLink>
+        </li>
+
+        <li className="my-3">
+          <NavLink to="/assistant" className="px-2 py-2 hover-div d-flex align-items-center">
+            <MdOutlineMessage size={20} className="me-2" />
+            Assistant
           </NavLink>
         </li>
 
@@ -41,16 +60,9 @@ const SideNav = () => {
         </li>
 
         <li className="my-3">
-          <NavLink to="/doctors" className="px-2 py-2 hover-div d-flex align-items-center">
-            <FaUserDoctor size={20} className="me-2" />
-            Doctors
-          </NavLink>
-        </li>
-
-        <li className="my-3">
-          <NavLink to="/messages" className="px-2 py-2 hover-div d-flex align-items-center">
-            <MdOutlineMessage size={20} className="me-2" />
-            Messages
+          <NavLink to="/inventory" className="px-2 py-2 hover-div d-flex align-items-center">
+            <AiOutlineMedicineBox size={20} className="me-2" />
+            Medicine Inventory
           </NavLink>
         </li>
 
@@ -62,21 +74,14 @@ const SideNav = () => {
         </li>
 
         <li className="my-3">
-          <NavLink to="/inventory" className="px-2 py-2 hover-div d-flex align-items-center">
-            <AiOutlineMedicineBox size={20} className="me-2" />
-            Medicine Inventory
-          </NavLink>
-        </li>
-
-        <li className="my-3">
-          <NavLink to="/settings" className="px-2 py-2 hover-div d-flex align-items-center">
+          <NavLink to="/setting" className="px-2 py-2 hover-div d-flex align-items-center">
             <IoMdSettings size={20} className="me-2" />
             Settings
           </NavLink>
         </li>
       </ul>
 
-      <button className="btn btn-danger mt-4 w-100">Logout</button>
+      <button className="btn btn-danger mt-4 w-100" onClick={logout}>Logout</button>
     </div>
   );
 };

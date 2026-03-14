@@ -1,110 +1,89 @@
-import React from "react";
-import { IoDocumentTextSharp } from "react-icons/io5";
-import { IoDocument } from "react-icons/io5";
-import { IoPeople } from "react-icons/io5";
+import React, { useEffect, useState } from "react";
+import { IoDocumentTextSharp, IoDocument, IoPeople } from "react-icons/io5";
 import { RiMedicineBottleFill } from "react-icons/ri";
 import { VscBook } from "react-icons/vsc";
 import '../Style/ActivityOverView.css'
 
-
 const ActivityOverView = () => {
+
+    const [stats, setStats] = useState({
+        appointments: 0,
+        patients: 0,
+        medicines: 0,
+        education: 0
+    });
+
+    useEffect(() => {
+        fetchStats();
+    }, []);
+
+   const fetchStats = async () => {
+        try {
+
+            const doctorRes = await fetch("http://localhost:8080/api/doctor");
+            const doctorData = await doctorRes.json();
+
+            const patientRes = await fetch("http://localhost:8080/api/patient");
+            const patientData = await patientRes.json();
+
+            const medicineRes = await fetch("http://localhost:8080/api/medicine");
+            const medicineData = await medicineRes.json();
+
+            setStats({
+                doctors: doctorData?.data?.length || 0,
+                patients: patientData?.data?.length || 0,
+                medicines: medicineData?.data?.length || 0,
+                education: 0
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     return (
-        <div className="activityOverViewParentContainer shadow-lg rounded p-3 bg-white h-100" 
+        <div className="activityOverViewParentContainer shadow-lg rounded p-3 bg-white h-100 d-flex flex-column" 
             style={{ width: "30%" }}
         >
-            {/* Title and Dropdown */}
-            <div class="d-flex justify-content-between align-items-center mb-1">
+
+            <div className="d-flex justify-content-between align-items-center mb-1">
                 <h5>Activity Overview</h5>
-                <div class="btn-group">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Select
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                Daily
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                Weekly
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                Monthly
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                Yearly
-                            </a>
-                        </li>
-                        <li>
-                            <a className="dropdown-item" href="#">
-                                All
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <IoDocumentTextSharp/>
             </div>
 
-            {/* Activity Container=0iu */}
-            {/* 1st & 2nd Container */}
-            <div class="d-flex justify-content-between align-items-center mb-1">
-                {/* First Container */}
-                <div className="activityOverContainer1 d-flex justify-content-between align-items-center  rounded
-                h-25 w-50 p-3">
-                    <div>
-                        <div className="text-center">
-                            <IoDocument size={25}/>
-                        </div>
-                        <div className="text-center fw-bold">{25}</div>
-                        <div className="text-center">Appointment</div>
-                    </div>
+            <div className="d-flex justify-content-between mb-2">
+
+                <div className="activityOverContainer1 rounded w-50 p-3 text-center">
+                    <IoDocument size={25}/>
+                    <div className="fw-bold">{stats.doctors}</div>
+                    <div>doctor</div>
                 </div>
-                {/* Second Container */}
-                <div className="activityOverContainer2 d-flex justify-content-between align-items-center  rounded 
-                h-25 w-50 p-3">
-                    <div>
-                        <div className="text-center">
-                        <IoPeople size={25} />
-                        </div>
-                        <div className="text-center fw-bold">{25}</div>
-                        <div className="text-center">Patients</div>
-                    </div>
+
+                <div className="activityOverContainer2 rounded w-50 p-3 text-center">
+                    <IoPeople size={25}/>
+                    <div className="fw-bold">{stats.patients}</div>
+                    <div>Patients</div>
                 </div>
             </div>
 
-            {/* 3rd & 4th Container*/}
-            <div class="d-flex justify-content-between align-items-center mb-1">
-                {/* Third Container */}
-                <div className="activityOverContainer3 d-flex justify-content-between align-items-center  rounded 
-                h-25 w-50 p-3">
-                    <div>
-                        <div className="text-center">
-                        <RiMedicineBottleFill size={25}/>
-                        </div>
-                        <div className="text-center fw-bold">{25}</div>
-                        <div className="text-center">Medicine Sold</div>
-                    </div>
+            <div className="d-flex justify-content-between">
+
+                <div className="activityOverContainer3 rounded w-50 p-3 text-center">
+                    <RiMedicineBottleFill size={25}/>
+                    <div className="fw-bold">{stats.medicines}</div>
+                    <div>Medicine Sold</div>
                 </div>
 
-                {/* Fourth Container */}
-                <div className="activityOverContainer4 d-flex justify-content-between align-items-center  rounded 
-                h-25 w-50 p-3">
-                    <div>
-                        <div className="text-center">
-                        <VscBook size={25} />
-                        </div>
-                        <div className="text-center fw-bold">{25}</div>
-                        <div className="text-center">Education Content</div>
-                    </div>
+                <div className="activityOverContainer4 rounded w-50 p-3 text-center">
+                    <VscBook size={25}/>
+                    <div className="fw-bold">{stats.education}</div>
+                    <div>Education Content</div>
                 </div>
             </div>
+
         </div>
     )
 }
 
-export default ActivityOverView ;
+export default ActivityOverView;

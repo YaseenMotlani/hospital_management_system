@@ -4,7 +4,7 @@ import Doctor from "../Components/doctor/Doctor";
 
 const DoctorPage = () => {
     return(
-        <Layout>
+        <Layout title="Doctors">
             <Doctor/>
         </Layout>
     );

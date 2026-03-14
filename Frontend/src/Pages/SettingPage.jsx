@@ -1,10 +1,11 @@
 import React from "react";
 import Layout from "../Components/Common/Layout";
+import Setting from "../Components/setting/Setting.jsx";
 
 const SettingPage = () => {
     return(
-        <Layout>
-            <h3>Setting Page</h3>
+        <Layout title="Setting">
+            <Setting/>
         </Layout>
     );
 };

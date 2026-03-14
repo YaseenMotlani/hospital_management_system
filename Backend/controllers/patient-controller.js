@@ -2,13 +2,15 @@ import mongoose from "mongoose";
 import Patients from "../models/patient-models.js";
 
 
+
 let getAllPatient = async (req, res) => {
     try {
         const patients = await Patients.find({});
 
         res.json({
             success: true,
-            message: "PATIENTS DATA RETRIEVED SUCCESSFULLY"
+            message: "PATIENTS DATA RETRIEVED SUCCESSFULLY",
+            data: patients,
         })
     } catch (error) {
         res.json({
