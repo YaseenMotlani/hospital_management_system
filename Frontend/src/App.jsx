@@ -10,26 +10,27 @@ import MedicineInventoryPage from './Pages/MedicineinventoryPage';
 import SettingPage from './Pages/SettingPage';
 import PatientsPage from './Pages/PatientsPage';
 import Signup from './Components/auth/SignUp';
-
 import { Routes, Route } from "react-router-dom";
-
+import { AuthProvider } from "./Components/auth/AuthContext";
 
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Signup/>} />
-      <Route path="/login" element={<LoginPage />} />
-      
-      <Route path="/dashboard" element={<ProtectedRoute role="dashboard"> <DashboardPage /> </ProtectedRoute>} />
-      <Route path="/assistant" element={<ProtectedRoute role="assistant"> <AiAssistant/> </ProtectedRoute>} />
-      <Route path="/appointments" element={<ProtectedRoute role="appointments"> <AppointmentPage /> </ProtectedRoute>} />
-      <Route path="/doctors" element={ <ProtectedRoute role="doctors"> <DoctorPage/> </ProtectedRoute>} />
-      <Route path="/education" element={<EducationContentPage/>} />
-      <Route path="/inventory" element={<ProtectedRoute role="inventory"> <MedicineInventoryPage/> </ProtectedRoute>} />
-      <Route path="/setting" element={<ProtectedRoute  role="setting"> <SettingPage/> </ProtectedRoute>} />
-      <Route path="/patients" element={<ProtectedRoute role="patients"> <PatientsPage/> </ProtectedRoute>} />
-    </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Signup/>} />
+          <Route path="/login" element={<LoginPage />} />
+          
+          <Route path="/dashboard" element={<ProtectedRoute role="dashboard"> <DashboardPage /> </ProtectedRoute>} />
+          <Route path="/assistant" element={<ProtectedRoute role="assistant"> <AiAssistant/> </ProtectedRoute>} />
+          <Route path="/appointments" element={<ProtectedRoute role="appointments"> <AppointmentPage /> </ProtectedRoute>} />
+          <Route path="/doctors" element={ <ProtectedRoute role="doctors"> <DoctorPage/> </ProtectedRoute>} />
+          <Route path="/education" element={<EducationContentPage/>} />
+          <Route path="/inventory" element={<ProtectedRoute role="inventory"> <MedicineInventoryPage/> </ProtectedRoute>} />
+          <Route path="/setting" element={<ProtectedRoute  role="setting"> <SettingPage/> </ProtectedRoute>} />
+          <Route path="/patients" element={<ProtectedRoute role="patients"> <PatientsPage/> </ProtectedRoute>} />
+        </Routes>
+      </AuthProvider>
   );
 }
 

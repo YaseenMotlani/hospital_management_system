@@ -5,6 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoInformationSharp } from "react-icons/io5";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
+import { useAuth } from "../auth/AuthContext";
 
 
 const Doctor = () => {
@@ -29,19 +30,44 @@ const Doctor = () => {
     
          // CHANGED: doctors list state (table data)
         const [doctors, setDoctors] = useState([]);
+        const { token } = useAuth();
         const [errors, setErrors] = useState({});
 
 
         // CHANGED: fetch doctors on page load
+        // useEffect(() => {
+        //     fetchDoctors();
+        // }, []);
+
         useEffect(() => {
-            fetchDoctors();
-        }, []);
+            if (token) {
+                fetchDoctors();
+            }
+        }, [token]);
 
         //  CHANGED: GET API
         const fetchDoctors = async () => {
-            const res = await fetch("http://localhost:8080/api/doctor");
-            const data = await res.json();
-            setDoctors(data.data);
+            try{
+
+                const res = await fetch("http://localhost:8080/api/doctor", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+                
+                const data = await res.json();
+
+                if (res.ok) {
+                    setDoctors(data.data);  // backend ka data
+                } else {
+                    console.log(data.message);
+                }
+
+            } catch (error) {
+                console.log(error.message);
+            }
+            
+            // setDoctors(data.data);
         };
 
         // 🔎 Live Search Filter
