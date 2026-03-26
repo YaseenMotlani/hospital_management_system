@@ -9,7 +9,7 @@ const {allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply,
 
 const getAllThreads = async () => {
     try {
-        const response = await fetch("http://localhost:8080/api/thread");
+        const response = await fetch("https://hospital-management-system-qf91.onrender.com/api/thread");
         const res = await response.json();
         // threadId, title
         const filteredData = res.map(thread => ({threadId: thread.threadId, title: thread.title}));
@@ -36,7 +36,7 @@ const changeThread = async (newThreadId) => {
     setCurrThreadId(newThreadId);
 
     try{
-        const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+        const response = await fetch(`https://hospital-management-system-qf91.onrender.com/api/thread/${newThreadId}`);
         const res = await response.json();
         console.log(res);
         setPrevChats(res);
@@ -49,7 +49,7 @@ const changeThread = async (newThreadId) => {
 
 const deleteThread = async (threadId) => {
     try{
-        const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, {method: "DELETE"});
+        const response = await fetch(`https://hospital-management-system-qf91.onrender.com/api/thread/${threadId}`, {method: "DELETE"});
         const res = await response.json();
         console.log(res);
 

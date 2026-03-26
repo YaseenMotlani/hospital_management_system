@@ -4,9 +4,12 @@ import { RxCross2 } from "react-icons/rx";
 import { IoInformationSharp } from "react-icons/io5";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
+import { useAuth } from "../auth/AuthContext";
+
 
 const Patient = () => {
     const [showModal, setShowModal] = useState(false);
+    const { token } = useAuth();
 
     const [newPatient, setNewPatient] = useState({
         name: "",
@@ -36,7 +39,12 @@ const Patient = () => {
     // CHANGED: GET API
     const fetchPatients = async () => {
     try {
-        const res = await fetch("http://localhost:8080/api/patient");
+        const res = await fetch("https://hospital-management-system-qf91.onrender.com/api/patient", {
+            headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
         const data = await res.json();
         console.log("API RESPONSE:", data);  
         setPatients(data.data || data);     
@@ -85,9 +93,9 @@ const Patient = () => {
             }
         }
 
-        if (name === "contact") {
+        if (name === "phone") {
             if (value && value.length !== 10) {
-                errorMessage = "Contact must be 10 digits";
+                errorMessage = "Number must be 10 digits";
             }
         }
 
@@ -149,10 +157,13 @@ const Patient = () => {
         try{
             if (editPatientId) {
                 await fetch(
-                    `http://localhost:8080/api/update-patient/${editPatientId}`,
+                    `https://hospital-management-system-qf91.onrender.com/api/update-patient/${editPatientId}`,
                     {
                         method: "PUT",
-                        headers: {"Content-Type": "application/json"},
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
                         body: JSON.stringify(newPatient),
                     }
                 );
@@ -165,9 +176,12 @@ const Patient = () => {
                 });
 
             } else {
-                await fetch("http://localhost:8080/api/add-patient", {
+                await fetch("https://hospital-management-system-qf91.onrender.com/api/add-patient", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
                     body: JSON.stringify(newPatient),
                 });
 
@@ -216,8 +230,12 @@ const Patient = () => {
         });
     
         if (result.isConfirmed) {
-            await fetch(`http://localhost:8080/api/delete-patient/${id}`, {
+            await fetch(`https://hospital-management-system-qf91.onrender.com/api/delete-patient/${id}`, {
                method: "DELETE",
+               headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
             });
     
             Swal.fire(

@@ -32,7 +32,7 @@ function ChatWindow() {
     setNewChat(false);
 
     try {
-      const response = await fetch("http://localhost:8080/api/chat", {
+      const response = await fetch("https://hospital-management-system-qf91.onrender.com/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

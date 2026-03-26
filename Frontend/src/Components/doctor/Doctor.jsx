@@ -7,7 +7,6 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
 import { useAuth } from "../auth/AuthContext";
 
-
 const Doctor = () => {
     const [showModal, setShowModal] = useState(false);
     
@@ -49,8 +48,9 @@ const Doctor = () => {
         const fetchDoctors = async () => {
             try{
 
-                const res = await fetch("http://localhost:8080/api/doctor", {
+                const res = await fetch("https://hospital-management-system-qf91.onrender.com/api/doctor", {
                     headers: {
+                        "Content-Type": "application/json",
                         "Authorization": `Bearer ${token}`
                     }
                 });
@@ -64,7 +64,12 @@ const Doctor = () => {
                 }
 
             } catch (error) {
-                console.log(error.message);
+                // console.log(error.message);
+                Swal.fire({
+                    icon: "error",
+                    title: "API Error",
+                    text: error.message
+                });
             }
             
             // setDoctors(data.data);
@@ -182,10 +187,13 @@ const Doctor = () => {
             try {
                 if (editDoctorId) {
                     await fetch(
-                        `http://localhost:8080/api/update-doctor/${editDoctorId}`,
+                        `https://hospital-management-system-qf91.onrender.com/api/update-doctor/${editDoctorId}`,
                         {
                             method: "PUT",
-                            headers: { "Content-Type": "application/json" },
+                            headers: { 
+                                "Content-Type": "application/json" ,
+                                "Authorization": `Bearer ${token}`
+                            },
                             body: JSON.stringify(newDoctor),
                         }
                     );
@@ -198,9 +206,12 @@ const Doctor = () => {
                     });
 
                 } else {
-                    await fetch("http://localhost:8080/api/add-doctor", {
+                    await fetch("https://hospital-management-system-qf91.onrender.com/api/add-doctor", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
+                        headers: { 
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
                         body: JSON.stringify(newDoctor),
                     });
 
@@ -261,8 +272,12 @@ const Doctor = () => {
             });
 
             if (result.isConfirmed) {
-                await fetch(`http://localhost:8080/api/delete-doctor/${id}`, {
+                await fetch(`https://hospital-management-system-qf91.onrender.com/api/delete-doctor/${id}`, {
                     method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
                 });
 
                 Swal.fire(
