@@ -33,8 +33,10 @@ const Patient = () => {
 
     // CHANGED: fetch patient on page load
     useEffect(() => {
-        fetchPatients();
-    }, []);
+        if (token) {
+            fetchPatients();
+        }
+    }, [token]);
 
     // CHANGED: GET API
     const fetchPatients = async () => {
