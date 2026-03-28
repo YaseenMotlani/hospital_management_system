@@ -3,9 +3,12 @@ import { useContext, useEffect } from "react";
 import { MyContext } from "./Mycontext.jsx";
 import {v1 as uuidv1} from "uuid";
 import logo from "../../assets/blacklogo.png";
+import { useAuth } from "../auth/AuthContext";
 
 function Sidebar() {
 const {allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply,setCurrThreadId,setPrevChats} = useContext(MyContext);
+
+const { token } = useAuth();
 
 const getAllThreads = async () => {
     try {
@@ -17,7 +20,12 @@ const getAllThreads = async () => {
         });
         const res = await response.json();
         // threadId, title
-        const filteredData = res.map(thread => ({threadId: thread.threadId, title: thread.title}));
+        const threads = res.data || res;
+
+        const filteredData = threads.map(thread => ({
+            threadId: thread.threadId, 
+            title: thread.title
+        }));
         // console.log(filteredData);
         setAllThreads(filteredData);
     } catch(err) {
@@ -26,8 +34,8 @@ const getAllThreads = async () => {
 };
 
 useEffect(() => {
-    getAllThreads();
-}, [currThreadId])
+    if(token) getAllThreads();
+}, [currThreadId, token])
 
 const createNewChat = () => {
     setNewChat(true);
@@ -49,7 +57,7 @@ const changeThread = async (newThreadId) => {
         });
         const res = await response.json();
         console.log(res);
-        setPrevChats(res);
+        setPrevChats(res.data);
         setNewChat(false);
         setReply(null);
     } catch(err) {
@@ -59,7 +67,8 @@ const changeThread = async (newThreadId) => {
 
 const deleteThread = async (threadId) => {
     try{
-        const response = await fetch(`https://hospital-management-system-qf91.onrender.com/api/thread/${threadId}`, {method: "DELETE"},{
+        const response = await fetch(`https://hospital-management-system-qf91.onrender.com/api/thread/${threadId}`, {
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
