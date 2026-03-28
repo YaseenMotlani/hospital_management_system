@@ -32,7 +32,7 @@ const Medicine = () => {
         // Get Api
         const fetchMedicine = async () => {
             try{
-                const res = await fetch("http://localhost:8080/api/medicine");
+                const res = await fetch("https://hospital-management-system-qf91.onrender.com/api/medicine");
                 const data = await res.json();
                 console.log("API RESPONSE:", data);
                 setMedicine(data.data || data);
@@ -52,7 +52,7 @@ const Medicine = () => {
         const handlerSaveMedicine = async () => {
             if (editMedicineId) {
                 await fetch(
-                    `http://localhost:8080/api/update-medicine/${editMedicineId}`,
+                    `https://hospital-management-system-qf91.onrender.com/api/update-medicine/${editMedicineId}`,
                     {
                         method: "PUT",
                         headers: {"Content-Type": "application/json"},
@@ -61,7 +61,7 @@ const Medicine = () => {
                 );
             } else {
                 await fetch(
-                    `http://localhost:8080/api/add-medicine`,
+                    `https://hospital-management-system-qf91.onrender.com/api/add-medicine`,
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -79,7 +79,7 @@ const Medicine = () => {
         const handleDeleteMedicine = async (id) => {
         if (!window.confirm("Are You Sure Want to Delete this Medicine?")) return;
 
-        await fetch(`http://localhost:8080/api/delete-medicine/${id}`, {
+        await fetch(`https://hospital-management-system-qf91.onrender.com/api/delete-medicine/${id}`, {
             method: "DELETE"
         });
 

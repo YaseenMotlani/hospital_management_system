@@ -20,13 +20,13 @@ const ActivityOverView = () => {
    const fetchStats = async () => {
         try {
 
-            const doctorRes = await fetch("http://localhost:8080/api/doctor");
+            const doctorRes = await fetch("https://hospital-management-system-qf91.onrender.com/api/doctor");
             const doctorData = await doctorRes.json();
 
-            const patientRes = await fetch("http://localhost:8080/api/patient");
+            const patientRes = await fetch("https://hospital-management-system-qf91.onrender.com/api/patient");
             const patientData = await patientRes.json();
 
-            const medicineRes = await fetch("http://localhost:8080/api/medicine");
+            const medicineRes = await fetch("https://hospital-management-system-qf91.onrender.com/api/medicine");
             const medicineData = await medicineRes.json();
 
             setStats({
