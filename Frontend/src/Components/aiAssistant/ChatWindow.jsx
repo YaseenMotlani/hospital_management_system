@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 import { RingLoader } from "react-spinners";
+import { useAuth } from "../auth/AuthContext";
 
 function ChatWindow() {
 
@@ -19,6 +20,8 @@ function ChatWindow() {
     setNewChat,
     newChat
   } = useContext(MyContext);
+
+  const { token } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +38,8 @@ function ChatWindow() {
       const response = await fetch("https://hospital-management-system-qf91.onrender.com/api/chat", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
           message: prompt,
@@ -121,7 +125,7 @@ function ChatWindow() {
 
         <div className="chats">
 
-          {prevChats?.slice(0, -1).map((chat, idx) => (
+          {Array.isArray(prevChats) && prevChats.slice(0, -1).map((chat, idx) => (
             <div
               key={idx}
               className={chat.role === "user" ? "userDiv" : "gptDiv"}
@@ -137,7 +141,7 @@ function ChatWindow() {
           ))}
 
           {/* TYPING EFFECT */}
-          {prevChats.length > 0 && latestReply !== null && (
+          {Array.isArray(prevChats) && prevChats.length > 0 && latestReply !== null && (
             <div className="gptDiv">
               <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                 {latestReply}

@@ -16,7 +16,7 @@ const getAllThreads = async () => {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
-            }
+            },
         });
         const res = await response.json();
         // threadId, title
@@ -31,6 +31,7 @@ const getAllThreads = async () => {
     } catch(err) {
         console.log(err);
     }
+
 };
 
 useEffect(() => {
@@ -55,13 +56,19 @@ const changeThread = async (newThreadId) => {
                 "Authorization": `Bearer ${token}`
             }
         });
+
         const res = await response.json();
-        console.log(res);
-        setPrevChats(res.data);
+        console.log("THREAD RESPONSE:", res);
+
+        // ✅ FIX (important)
+        setPrevChats(res.data || res || []);
+
         setNewChat(false);
         setReply(null);
+
     } catch(err) {
         console.log(err);
+        setPrevChats([]); // safety
     }
 }
 
