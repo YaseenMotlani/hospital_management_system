@@ -14,9 +14,13 @@ import authRoutes from "./routes/auth-routes.js";
 dotenv.config();
 const app = express();
 
-// 🔴 CHANGED: CORS enable for frontend
+//  CHANGED: CORS enable for frontend
 app.use(cors({
-  origin: "http://localhost:5173"
+  origin: [
+    "http://localhost:5173",
+    "https://hospital-management-system-f.onrender.com"
+  ],
+  credentials: true
 }));
 
 // this two command use to store data in mongo atlas
